@@ -27,7 +27,7 @@ function App() {
 
 
       {/* Submitting photos */}
-      <main className="bg-neutral-one border border-t-2 border-b-2 border-black h-[75svh] relative px-12">
+      <main className="bg-neutral-one border border-t-2 border-b-2 border-black h-[65svh] relative px-12">
         <form 
           onSubmit={handleSubmit}
           className="h-full w-full"
@@ -47,15 +47,15 @@ function App() {
 
       {/* Results Section*/}
       <section className="py-16 px-12 ">
-        <div className="grid grid-cols-2 gap-4 [&:nth-child(3)]:col-span-2">
+        <div className="grid grid-cols-2 gap-4">
           <Card>
             <p><b>Type of Food:</b></p>
             <div>
-              Ingredients:
+              <b>Ingredients:</b>
               <ul className="list-disc ml-8 w-full">
-                <li>Bleh</li>
-                <li>Bleh</li>
-                <li>bleh</li>
+                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
+                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
+                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
               </ul>
             </div>
             <p><b>Approximate Calorie:</b> XXXcal</p>
@@ -64,27 +64,29 @@ function App() {
           <Card>
           <p><b>Type of Food:</b></p>
             <div>
-              Ingredients:
+              <b>Ingredients:</b>
               <ul className="list-disc ml-8 w-full">
-                <li>Bleh</li>
-                <li>Bleh</li>
-                <li>bleh</li>
+                <li>Ingredient Name (XXXcal, XXXkg of CO2) </li>
+                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
+                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
               </ul>
             </div>
             <p><b>Approximate Calorie:</b> XXXcal</p>
             <p><b>Approximate CO2: </b> XXXcal</p>
           </Card>
-          <Card>
-            <p>You've saved <b>XXcal</b> of food waste with this meal</p>
-            <p>You've saved <b>XXXkg</b> of CO2 emissions with this meal</p>
-          </Card>
+          <div className="col-span-2">
+            <Card>
+              <p>You've saved <b>XXcal</b> of food waste with this meal</p>
+              <p>You've saved <b>XXXkg</b> of CO2 emissions with this meal</p>
+            </Card>
+          </div>
         </div>
       </section>
 
       {/* Footer at bottom*/}
       <footer className="py-16 px-12 bg-black">
-        <div className="flex gap-2 justify-between">
-          <p className="text-white">Originally a submission for TerraHacks</p>
+        <div className="flex gap-2 justify-between items-center">
+          <p className="text-white text-xl font-semibold">Originally a submission for TerraHacks</p>
           <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button">Github</a>
         </div>
       </footer>
