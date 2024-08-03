@@ -4,7 +4,7 @@ import axios from "axios";
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const apiCall = () => {
+  const handleSubmit = () => {
     try {
       axios.get("/api/response").then((response) => {
         console.log(response);
@@ -13,18 +13,22 @@ function App() {
       console.error(error);
     }
   };
-  
-  const handleSubmit = () => {
-    return ;
-  }
+
 
   return (
-    <div className="bg-red-500 min-h-screen w-full">
-      <form onSubmit={handleSubmit}>
+    <div className="bg-white min-h-screen w-full">
+      {/* Top Nav Bar*/}
+      <header className="w-full py-7 pl-12">
+        <h1 className="font-extrabold text-3xl">BiteBack</h1>
+      </header>
+
+      {/* Submitting photos */}
+      <form 
+        onSubmit={handleSubmit}
+        className=""
+      >
         <input type="file" />
-        <button onClick={apiCall}>
-          Upload Picture
-        </button>
+        <button type="submit">Calculate</button>
       </form>
     </div>
   );

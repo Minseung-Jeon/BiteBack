@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+:root {
+    /* Colours */
+    /* Primary Colours */
+    --c-primary-one: #FAFBCA; /* Upload Picture */
+    
+    /* Neutral Colours */
+    --c-neutral-one: #F6F6F6; /*  */
+    --c-neutral-two: #EBEBEB; /* Cards */
+    --c-neutral-three: #433C3C; /* File status */
+    --c-neutral-four: #2E2727; /* Title */
+
+    /* Accent Colours */
+    --c-accent: #FDF41C; /* Submit and GitHub buttons */
+
+    /* Font Family */
+    --ff-primary: 'Inter', sans-serif;
+
+    /* Font Size */
+    --fs-base: 18px;
+}
+
+@layer base {
+    html {
+        font-size: var(--fs-base);
+        font-family: var(--ff-primary);
+    }
+}
