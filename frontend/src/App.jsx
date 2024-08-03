@@ -13,12 +13,21 @@ function App() {
       console.error(error);
     }
   };
+  
+  const handleSubmit = () => {
+    return ;
+  }
 
   return (
-    <>
-      <input type="file" />
-      <button onClick={apiCall}>Upload Picture</button>
-    </>
+    <div className="bg-red-500 min-h-screen w-full">
+      <form onSubmit={handleSubmit}>
+        <input type="file" />
+        <button onClick={apiCall}>
+          Upload Picture
+        </button>
+      </form>
+    </div>
   );
+
 }
 export default App;
