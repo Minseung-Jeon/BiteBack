@@ -2,7 +2,7 @@ require("dotenv").config();
 
 //for chatgpt
 const openai = require("openai");
-const apiKey = process.env.CHATGPT_API_KEY;
+const apiKey = process.env.OPENAI_API_KEY;
 const openaiClient = new openai.OpenAI({ apiKey });
 
 //interact with file system on computer
