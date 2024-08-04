@@ -57,8 +57,9 @@ function App() {
   return (
     <div className="bg-white min-h-screen w-full">
       {/* Top Nav Bar*/}
-      <header className="w-full py-7 pl-12">
-        <h1 className="font-extrabold text-3xl">BiteBack</h1>
+      <header className="w-full py-7 pl-12 flex items-center">
+        <img src="BiteBackLogo.jpeg" alt="BiteBack Logo" className="h-20 w-auto mr-4"/>
+        {/* <h1 className="font-extrabold text-3xl">BiteBack</h1> */}
       </header>
 
       {/* Submitting photos */}
@@ -67,12 +68,14 @@ function App() {
           <div className="grid grid-cols-2 gap-4 w-full h-full pt-6 pb-16">
             <input
               onChange={handleFileChange1}
+              placeholder="Regular Meal"
               type="file"
               id="file2"
               className="file-input"
             />
             <input
               onChange={handleFileChange2}
+              placeholder="Current Meal"
               type="file"
               id="file2"
               className="file-input"
@@ -162,9 +165,14 @@ function App() {
       {/* Footer at bottom*/}
       <footer className="py-16 px-12 bg-black">
         <div className="flex gap-2 justify-between items-center">
-          <p className="text-white text-lg font-semibold">
+          <a
+            href="https://terrahacks.ca/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white text-lg font-semibold hover:underline"
+          >
             Originally a submission for TerraHacks
-          </p>
+          </a>
           <div className="">
             <a
               href="https://github.com/Minseung-Jeon/BiteBack"
