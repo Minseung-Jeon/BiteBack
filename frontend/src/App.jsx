@@ -41,14 +41,12 @@ function App() {
           <input 
               type="file" 
               id="file2"
-              className="file:w-[70%] file:h-full file:bg-primary file:rounded-2xl file:border-3 file:border-black file:shadow-2xl
-              file:font-extrabold file:text-3xl hover:file:bg-yellow-300" 
+              className="file-input" 
           />
           <input 
               type="file" 
               id="file2"
-              className="file:w-[70%] file:h-full file:bg-primary file:rounded-2xl file:border-3 file:border-black file:shadow-2xl
-              file:font-extrabold file:text-3xl hover:file:bg-yellow-300" 
+              className="file-input" 
             />
           </div>
           <button 
@@ -106,7 +104,11 @@ function App() {
             <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button block">
               <span><FiGithub className="inline-block align-middle mr-1" size={30}/></span> Github
             </a>
-            <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button block mt-4">
+            <a 
+              href="https://terrahacks.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open" 
+              target="_blank" 
+              className="accent-button block mt-4"
+            >
               <span><SiDevpost className="inline-block align-middle mr-1" size={30}/></span> Devpost
             </a>
           </div>
