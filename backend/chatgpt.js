@@ -18,47 +18,72 @@ async function chatGPT() {
       messages: [{ role: "user", content: "how are you doing?" }],
       max_tokens: 50,
     });
-    console.log(response);
-    console.log(response.choices[0].message.content);
   } catch (error) {
     console.error(error);
   }
 }
 
-async function analyzeImageFromPath(imagePath, instruction) {
+const prompt = `Analyze the following two images. The first image represents a "regular meal" and the second represents a "current meal". 
+
+              Please provide the analysis in JSON format with these keys:
+
+              {
+                "regular_meal": {
+                  "type_of_food": "",
+                  "ingredients": [
+                    {
+                      "name": "",
+                      "estimated_calories": "",
+                      "carbon_footprint": ""
+                    }
+                    // ... more ingredients as needed
+                  ],
+                  "estimated_calories": "",
+                  "carbon_footprint": ""
+                },
+                "current_meal": {
+                  // Same structure as "regular_meal"
+                },
+                "comparison": {
+                  "calorie_difference": "", 
+                  "carbon_footprint_difference": "",
+                  "analysis": "", 
+                  "potential_food_waste_saved": "", 
+                  "potential_carbon_footprint_saved": "" 
+                }
+              }
+                `;
+
+async function analyzeImages(imagePath1, imagePath2) {
   try {
-    const imageBuffer = await sharp(imagePath).toFormat("jpeg").toBuffer();
-    console.log("imageBuffer:", imageBuffer);
-    const imageData = imageBuffer.toString("base64");
+    const imageBuffer1 = await sharp(imagePath1).toFormat("jpeg").toBuffer();
+    const imageBuffer2 = await sharp(imagePath2).toFormat("jpeg").toBuffer();
+
+    const imageData1 = imageBuffer1.toString("base64");
+    const imageData2 = imageBuffer2.toString("base64");
 
     const payload = {
       model: "gpt-4o-mini",
+      response_format: { type: "json_object" },
+
       messages: [
         {
           role: "user",
           content: [
             {
               type: "text",
-              text: `Analyze the following image and provide information in a JSON object with these keys:
-
-                {
-                "type_of_food": "",
-                "ingrediants": [
-                {
-                 "name":"",
-                 "estimated_calories": "",
-                 "carbon_footprint": "",
-                }
-                ],
-                "estimated_calories": "",
-                "carbon_footprint": ""
-
-                }`,
+              text: prompt,
             },
             {
               type: "image_url",
               image_url: {
-                url: `data:image/jpeg;base64, ${imageData}`,
+                url: `data:image/jpeg;base64, ${imageData1}`,
+              },
+            },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:image/jpeg;base64, ${imageData2}`,
               },
             },
           ],
@@ -67,11 +92,15 @@ async function analyzeImageFromPath(imagePath, instruction) {
     };
     const response = await openaiClient.chat.completions.create(payload);
     const description = response.choices[0].message.content;
-    console.log(response);
-    console.log(description);
+
+    //convert string response to json object
+    const jsonObject = JSON.parse(description);
+  
+    return jsonObject;
   } catch (error) {
     console.error(error);
   }
 }
 
-analyzeImageFromPath("uploads/steak.jpg", "write");
+//analyzeImages("uploads/steak.jpg", "uploads/feast.jpg");
+module.exports = { analyzeImages };
