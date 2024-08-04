@@ -23,8 +23,8 @@ async function chatGPT() {
   }
 }
 
-const prompt = `Analyze the following two images. The first image represents a "regular meal" and the second represents a "current meal". 
-
+const ANALYSIS_PROMPT = `Analyze the following two images. The first image represents a "regular meal" and the second represents a "current meal". 
+                If one of the picture is non-food picture, return "put food picture" in all of json keys.
               Please provide the analysis in JSON format with these keys:
 
               {
@@ -45,11 +45,11 @@ const prompt = `Analyze the following two images. The first image represents a "
                   // Same structure as "regular_meal"
                 },
                 "comparison": {
-                  "calorie_difference": "", 
-                  "carbon_footprint_difference": "",
-                  "analysis": "", 
-                  "potential_food_waste_saved": "", 
-                  "potential_carbon_footprint_saved": "" 
+                  "analysis": "", //give general analysis
+                  "suggestion: "", //if user is eating more calories than regular meal, suggest to drop food items
+                 
+                  "potential_food_waste_saved": "", //if user drops the food items, how much food waste can be saved
+                  "potential_carbon_footprint_saved": ""  //if user drops the food items, how much carbon footprint can be saved
                 }
               }
                 `;
@@ -72,7 +72,7 @@ async function analyzeImages(imagePath1, imagePath2) {
           content: [
             {
               type: "text",
-              text: prompt,
+              text: ANALYSIS_PROMPT,
             },
             {
               type: "image_url",
@@ -95,10 +95,10 @@ async function analyzeImages(imagePath1, imagePath2) {
 
     //convert string response to json object
     const jsonObject = JSON.parse(description);
-  
+
     return jsonObject;
   } catch (error) {
-    console.error(error);
+    console.error("GPT error: ", error);
   }
 }
 

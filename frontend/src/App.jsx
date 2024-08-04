@@ -4,24 +4,55 @@ import { SiDevpost } from "react-icons/si";
 
 import axios from "axios";
 
+//import components
 import Card from "./components/card";
+import ResultCard from "./components/ResultCard";
 
 function App() {
   const [selectedFile1, setSelectedFile1] = useState(null);
   const [selectedFile2, setSelectedFile2] = useState(null);
 
-  const apiCall = () => {
+  const [analysisResult, setAnalysisResult] = useState(null);
+
+  const handleFileChange1 = (event) => {
+    setSelectedFile1(event.target.files[0]);
+  };
+
+  const handleFileChange2 = (event) => {
+    setSelectedFile2(event.target.files[0]);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("handle submit working");
+
+    //alert user if no file is selected
+    if (!selectedFile1) {
+      alert("Please provide image file of your regular meal");
+      return;
+    }
+
+    if (!selectedFile2) {
+      alert("Please provide image file of your current meal");
+      return;
+    }
+
+    //create new formdata for file upload
+    const formData = new FormData();
+
+    if (selectedFile1 && selectedFile2) {
+      formData.append("image1", selectedFile1);
+      formData.append("image2", selectedFile2);
+    }
+
     try {
-      axios.get("/api/response").then((response) => {
-        console.log(response);
-      });
+      const response = await axios.post("/api/upload", formData);
+      setAnalysisResult(response.data.analysis);
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const [name, useName] = useState("");
-
 
   return (
     <div className="bg-white min-h-screen w-full">
@@ -30,86 +61,136 @@ function App() {
         <h1 className="font-extrabold text-3xl">BiteBack</h1>
       </header>
 
-
       {/* Submitting photos */}
       <main className="bg-neutral-two border border-t-2 border-b-2 border-black h-[65svh] relative px-12">
-        <form 
-          onSubmit={handleSubmit}
-          className="h-full w-full"
-        >
+        <form onSubmit={handleSubmit} className="h-full w-full">
           <div className="grid grid-cols-2 gap-4 w-full h-full pt-6 pb-16">
-          <input 
-              type="file" 
+            <input
+              onChange={handleFileChange1}
+              type="file"
               id="file2"
-              className="file-input" 
-          />
-          <input 
-              type="file" 
+              className="file-input"
+            />
+            <input
+              onChange={handleFileChange2}
+              type="file"
               id="file2"
-              className="file-input" 
+              className="file-input"
             />
           </div>
-          <button 
+          <button
             type="submit"
-            className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 accent-button shadoww"
-            >
+            className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 accent-button shadow"
+          >
             Calculate
-        </button>
+          </button>
         </form>
       </main>
 
       {/* Results Section*/}
-      <section className="py-16 px-12 ">
-        <div className="grid grid-cols-2 gap-6">
-          <Card>
-            <p><b>Type of Food:</b></p>
-            <div>
-              <b>Ingredients:</b>
-              <ul className="list-disc ml-8 w-full">
-                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
-                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
-                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
-              </ul>
-            </div>
-            <p><b>Approximate Calorie:</b> XXXcal</p>
-            <p><b>Approximate CO2: </b> XXXcal</p>
-          </Card>
-          <Card>
-          <p><b>Type of Food:</b></p>
-            <div>
-              <b>Ingredients:</b>
-              <ul className="list-disc ml-8 w-full">
-                <li>Ingredient Name (XXXcal, XXXkg of CO2) </li>
-                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
-                <li>Ingredient Name (XXXcal, XXXkg of CO2)</li>
-              </ul>
-            </div>
-            <p><b>Approximate Calorie:</b> XXXcal</p>
-            <p><b>Approximate CO2: </b> XXXcal</p>
-          </Card>
-          <div className="col-span-2">
+      {analysisResult && (
+        <section className="py-16 px-12 ">
+          <div className="grid grid-cols-2 gap-6">
             <Card>
-              <p>You've saved <b>XXcal</b> of food waste with this meal</p>
-              <p>You've saved <b>XXXkg</b> of CO2 emissions with this meal</p>
+              <p>
+                <b>Type of Food: {analysisResult.regular_meal.type_of_food}</b>
+              </p>
+              <div>
+                <b>Ingredients:</b>
+                <ul className="list-disc ml-8 w-full">
+                  {analysisResult.regular_meal.ingredients.map(
+                    (ingredient, index) => (
+                      <li key={index}>
+                        {ingredient.name} ({ingredient.estimated_calories}cal,
+                        {ingredient.carbon_footprint}kg of CO2)
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+              <p>
+                <b>Approximate Calorie: </b>{" "}
+                {analysisResult.regular_meal.estimated_calories}
+              </p>
+              <p>
+                <b>Approximate CO2: </b>{" "}
+                {analysisResult.regular_meal.carbon_footprint}
+              </p>
             </Card>
+            <Card>
+              <p>
+                <b>Type of Food: {analysisResult.current_meal.type_of_food}</b>
+              </p>
+              <div>
+                <b>Ingredients:</b>
+                <ul className="list-disc ml-8 w-full">
+                  {analysisResult.current_meal.ingredients.map(
+                    (ingredient, index) => (
+                      <li key={index}>
+                        {ingredient.name} ({ingredient.estimated_calories}cal,
+                        {ingredient.carbon_footprint}kg of CO2)
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+              <p>
+                <b>Approximate Calorie: </b>{" "}
+                {analysisResult.current_meal.estimated_calories}
+              </p>
+              <p>
+                <b>Approximate CO2: </b>{" "}
+                {analysisResult.current_meal.carbon_footprint}
+              </p>
+            </Card>
+            <div className="col-span-2">
+              <ResultCard
+                GeneralAnalysis={analysisResult.comparison.analysis}
+                Suggestion={analysisResult.comparison.suggestion}
+                SavedFoodWaste={
+                  analysisResult.comparison.potential_food_waste_saved
+                }
+                SavedCarbonFootprint={
+                  analysisResult.comparison.potential_carbon_footprint_saved
+                }
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer at bottom*/}
       <footer className="py-16 px-12 bg-black">
         <div className="flex gap-2 justify-between items-center">
-          <p className="text-white text-lg font-semibold">Originally a submission for TerraHacks</p>
+          <p className="text-white text-lg font-semibold">
+            Originally a submission for TerraHacks
+          </p>
           <div className="">
-            <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button block">
-              <span><FiGithub className="inline-block align-middle mr-1" size={30}/></span> Github
+            <a
+              href="https://github.com/Minseung-Jeon/BiteBack"
+              target="_blank"
+              className="accent-button block"
+            >
+              <span>
+                <FiGithub
+                  className="inline-block align-middle mr-1"
+                  size={30}
+                />
+              </span>{" "}
+              Github
             </a>
-            <a 
-              href="https://terrahacks.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open" 
-              target="_blank" 
+            <a
+              href="https://terrahacks.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open"
+              target="_blank"
               className="accent-button block mt-4"
             >
-              <span><SiDevpost className="inline-block align-middle mr-1" size={30}/></span> Devpost
+              <span>
+                <SiDevpost
+                  className="inline-block align-middle mr-1"
+                  size={30}
+                />
+              </span>{" "}
+              Devpost
             </a>
           </div>
         </div>
