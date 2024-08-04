@@ -96,7 +96,7 @@ function App() {
           <div className="grid grid-cols-2 gap-6">
             <Card>
               <p>
-                <b>Type of Food: {analysisResult.regular_meal.type_of_food}</b>
+                <b>{analysisResult.regular_meal.type_of_food}</b>
               </p>
               <div>
                 <b>Ingredients:</b>
@@ -122,7 +122,7 @@ function App() {
             </Card>
             <Card>
               <p>
-                <b>Type of Food: {analysisResult.current_meal.type_of_food}</b>
+                <b>{analysisResult.current_meal.type_of_food}</b>
               </p>
               <div>
                 <b>Ingredients:</b>

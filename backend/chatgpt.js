@@ -47,7 +47,7 @@ const ANALYSIS_PROMPT = `Analyze the following two images. The first image repre
                 "comparison": {
                   "analysis": "", //give general analysis
                   "suggestion: "", //if user is eating more calories than regular meal, suggest to drop food items. Let them know its more than there usual consumption and they will likely not able to finish it
-                 
+                  //if user is eating less or similar calories than regular meal, let them know they are eating less calories than usual and there will be no food waste
                   "potential_food_waste_saved": "", //if user drops the food items, inform them how much food waste can be saved
                   "potential_carbon_footprint_saved": ""  //if user drops the food items, inform how much carbon footprint can be saved
                 }
