@@ -1,5 +1,5 @@
 ### BiteBack
-
+# How to Run in your local machine
 1. Clone Repository
 2. Install Front-End Dependencies
 `cd frontend && npm install`
