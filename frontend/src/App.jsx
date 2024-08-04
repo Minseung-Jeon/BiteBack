@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { FiGithub } from "react-icons/fi";
+import { SiDevpost } from "react-icons/si";
+
 import axios from "axios";
 
 import Card from "./components/card";
@@ -16,6 +19,8 @@ function App() {
     }
   };
 
+  const [name, useName] = useState("");
+
 
   return (
     <div className="bg-white min-h-screen w-full">
@@ -25,20 +30,29 @@ function App() {
       </header>
 
 
-
       {/* Submitting photos */}
-      <main className="bg-neutral-one border border-t-2 border-b-2 border-black h-[65svh] relative px-12">
+      <main className="bg-neutral-two border border-t-2 border-b-2 border-black h-[65svh] relative px-12">
         <form 
           onSubmit={handleSubmit}
           className="h-full w-full"
         >
-          <div className="flex gap-4 w-full">
-           <input type="file" className="w-full"/>
-           <input type="file" className="w-full"/>
+          <div className="grid grid-cols-2 gap-4 w-full h-full pt-6 pb-16">
+          <input 
+              type="file" 
+              id="file2"
+              className="file:w-[70%] file:h-full file:bg-primary file:rounded-2xl file:border-3 file:border-black file:shadow-2xl
+              file:font-extrabold file:text-3xl hover:file:bg-yellow-300" 
+          />
+          <input 
+              type="file" 
+              id="file2"
+              className="file:w-[70%] file:h-full file:bg-primary file:rounded-2xl file:border-3 file:border-black file:shadow-2xl
+              file:font-extrabold file:text-3xl hover:file:bg-yellow-300" 
+            />
           </div>
           <button 
             type="submit"
-            className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 accent-button"
+            className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1/2 accent-button shadoww"
             >
             Calculate
         </button>
@@ -47,7 +61,7 @@ function App() {
 
       {/* Results Section*/}
       <section className="py-16 px-12 ">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-6">
           <Card>
             <p><b>Type of Food:</b></p>
             <div>
@@ -86,8 +100,15 @@ function App() {
       {/* Footer at bottom*/}
       <footer className="py-16 px-12 bg-black">
         <div className="flex gap-2 justify-between items-center">
-          <p className="text-white text-xl font-semibold">Originally a submission for TerraHacks</p>
-          <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button">Github</a>
+          <p className="text-white text-lg font-semibold">Originally a submission for TerraHacks</p>
+          <div className="">
+            <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button block">
+              <span><FiGithub className="inline-block align-middle mr-1" size={30}/></span> Github
+            </a>
+            <a href="https://github.com/Minseung-Jeon/BiteBack" target="_blank" className="accent-button block mt-4">
+              <span><SiDevpost className="inline-block align-middle mr-1" size={30}/></span> Devpost
+            </a>
+          </div>
         </div>
       </footer>
     </div>

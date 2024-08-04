@@ -9,10 +9,10 @@
 :root {
     /* Colours */
     /* Primary Colours */
-    --c-primary-one: #FAFBCA; /* Upload Picture */
+    --c-primary: #FAFBCA; /* Upload Picture */
     
     /* Neutral Colours */
-    --c-neutral-one: #F6F6F6; /*  */
+    --c-neutral-one: #F6F6F6; /* Cards */
     --c-neutral-two: #EBEBEB; /* Cards */
     --c-neutral-three: #433C3C; /* File status */
     --c-neutral-four: #2E2727; /* Title */
@@ -36,6 +36,10 @@
 
 @layer components {
     .accent-button {
-        @apply bg-accent py-3 px-16 rounded-xl border-2 border-black font-bold text-xl;
+        @apply bg-accent py-3 px-16 rounded-2xl border-2 border-black font-bold text-xl hover:scale-105 transition-all;
+    }
+
+    .shadoww {
+        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
     }
 }
