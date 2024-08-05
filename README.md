@@ -5,7 +5,7 @@
 `cd frontend && npm install`
 4. Install Back-End Dependencies
 `cd backend  && npm install`
-4. create up ".env" file in backend folder
+4. Create ".env" file in backend folder
 `PORT = 6000`
 `OPENAI_API_KEY = "your open ai api key`
 5. Create "uploads" folder in backend folder
