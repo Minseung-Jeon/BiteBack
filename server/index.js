@@ -15,16 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(UPLOADS_DIR));
 
-//for file upload multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    const filename = `${Date.now()}-${file.originalname}`;
-    cb(null, filename);
-  },
-});
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 //make uploads directly publicly accessible
@@ -41,16 +32,11 @@ app.post(
   ]),
   async (req, res) => {
     try {
-      const imagePath1 = path.join(UPLOADS_DIR, req.files.image1[0].filename);
-
-      const imagePath2 = path.join(UPLOADS_DIR, req.files.image2[0].filename);
-
-      if (!fs.existsSync(imagePath1) || !fs.existsSync(imagePath2)) {
-        return res.json({ error: "one or both file not found" });
-      }
+      const imageData1 = req.files.image1[0].buffer;
+      const imageData2 = req.files.image2[0].buffer;
 
       //get analysis from analyzeImages function in chatgpt.js
-      const analyzeImagesResponse = await analyzeImages(imagePath1, imagePath2);
+      const analyzeImagesResponse = await analyzeImages(imageData1, imageData2);
 
       console.log(analyzeImagesResponse);
 
