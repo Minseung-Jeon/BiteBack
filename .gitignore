@@ -1,2 +1,2 @@
-backend/.env
-backend/uploads
+server/.env
+server/client/uploads
