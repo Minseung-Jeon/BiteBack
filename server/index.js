@@ -8,7 +8,7 @@ const app = express();
 const multer = require("multer");
 const path = require("path");
 
-const PORT = process.env.PORT;
+const port = process.env.PORT || 5000;
 const UPLOADS_DIR = path.join(__dirname, "uploads");
 
 app.use(cors());
@@ -60,11 +60,10 @@ app.post(
       });
     } catch (error) {
       console.error("/api/upload Error: ", error);
-      res.json({ error: "Internal Server Error" });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   }
 );
-
 
 //for deploying
 //use the client app
@@ -75,9 +74,6 @@ app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "/client/dist/index.html"))
 );
 
-console.log(process.env.OPENAI_API_KEY)
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
- 
