@@ -3,7 +3,7 @@ import { FiGithub } from "react-icons/fi";
 import { SiDevpost } from "react-icons/si";
 
 //importing biteback logo
-import BiteBackLogo from "./BiteBackLogo.jpeg";
+import BiteBackLogo from "../BiteBackLogo.jpeg";
 
 import axios from "axios";
 
