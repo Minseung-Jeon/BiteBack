@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FiGithub } from "react-icons/fi";
 import { SiDevpost } from "react-icons/si";
 
+//importing biteback logo
+import BiteBackLogo from "./BiteBackLogo.jpeg";
+
 import axios from "axios";
 
 //import components
@@ -58,7 +61,11 @@ function App() {
     <div className="bg-white min-h-screen w-full">
       {/* Top Nav Bar*/}
       <header className="w-full py-7 pl-12 flex items-center">
-        <img src="BiteBackLogo.jpeg" alt="BiteBack Logo" className="h-20 w-auto mr-4"/>
+        <img
+          src={BiteBackLogo}
+          alt="BiteBack Logo"
+          className="h-20 w-auto mr-4"
+        />
         {/* <h1 className="font-extrabold text-3xl">BiteBack</h1> */}
       </header>
 
